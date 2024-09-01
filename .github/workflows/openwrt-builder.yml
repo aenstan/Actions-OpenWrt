@@ -33,6 +33,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: SSH connection to Actions
+      uses: P3TERX/debugger-action@master
+    
     - name: Checkout
       uses: actions/checkout@main
 
@@ -40,6 +43,8 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        sudo rm -rf node_modules/
+        sudo rm -rf package-lock.json
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo docker image prune --all --force
         sudo -E apt-get -qq update
